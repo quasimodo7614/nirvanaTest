@@ -19,6 +19,7 @@ var MemDb *MemStore
 func init() {
 	MemDb = NewMemStore()
 }
+
 func NewMemStore() *MemStore {
 	return &MemStore{
 		Valm: make(map[int]types.Message),

@@ -7,6 +7,7 @@ import (
 )
 
 const DefaultCountNum  = 10
+
 type MsgStore interface {
 	Add(ctx context.Context, obj types.Message) error
 	Upd(ctx context.Context, obj types.Message) error
