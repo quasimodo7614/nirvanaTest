@@ -1,7 +1,7 @@
 package descriptors
 
 import (
-	"quasimodo7614/nirvanatest/pkg/apis/v1/middlewares"
+	"github.com/quasimodo7614/nirvanatest/pkg/apis/v1/middlewares"
 
 	def "github.com/caicloud/nirvana/definition"
 )
