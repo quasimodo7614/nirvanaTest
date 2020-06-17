@@ -4,9 +4,10 @@ package apis
 
 import (
 	"github.com/quasimodo7614/nirvanatest/pkg/apis/middlewares"
-	v1 "github.com/quasimodo7614/nirvanatest/pkg/apis/v1/descriptors"
 
 	def "github.com/caicloud/nirvana/definition"
+
+	v1 "github.com/quasimodo7614/nirvanatest/pkg/apis/v1/descriptors"
 )
 
 // Descriptor returns a combined descriptor for APIs of all versions.

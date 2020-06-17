@@ -3,8 +3,9 @@ package memory
 import (
 	"context"
 	"errors"
-	"github.com/quasimodo7614/nirvanatest/pkg/types"
 	"sync"
+
+	"github.com/quasimodo7614/nirvanatest/pkg/types"
 )
 
 type MemStore struct {

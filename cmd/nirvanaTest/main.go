@@ -3,11 +3,6 @@ package main
 import (
 	"fmt"
 
-	"github.com/quasimodo7614/nirvanatest/pkg/apis"
-	"github.com/quasimodo7614/nirvanatest/pkg/apis/filters"
-	"github.com/quasimodo7614/nirvanatest/pkg/apis/modifiers"
-	"github.com/quasimodo7614/nirvanatest/pkg/version"
-
 	"github.com/caicloud/nirvana"
 	"github.com/caicloud/nirvana/config"
 	"github.com/caicloud/nirvana/log"
@@ -15,6 +10,11 @@ import (
 	"github.com/caicloud/nirvana/plugins/metrics"
 	"github.com/caicloud/nirvana/plugins/reqlog"
 	pversion "github.com/caicloud/nirvana/plugins/version"
+
+	"github.com/quasimodo7614/nirvanatest/pkg/apis"
+	"github.com/quasimodo7614/nirvanatest/pkg/apis/filters"
+	"github.com/quasimodo7614/nirvanatest/pkg/apis/modifiers"
+	"github.com/quasimodo7614/nirvanatest/pkg/version"
 )
 
 func main() {
