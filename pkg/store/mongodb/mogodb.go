@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"os"
-	"quasimodo7614/nirvanaTest/pkg/types"
+	"quasimodo7614/nirvanatest/pkg/types"
 	"strings"
 
 	"github.com/caicloud/nirvana/log"

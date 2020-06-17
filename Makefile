@@ -19,7 +19,7 @@
 VERSION ?= v0.1.0
 
 # Target binaries. You can build multiple binaries for a single project.
-TARGETS := nirvanaTest
+TARGETS := nirvanatest
 
 # Container registries.
 REGISTRIES ?= ""

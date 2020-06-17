@@ -2,8 +2,8 @@ package message
 
 import (
 	"context"
-	"quasimodo7614/nirvanaTest/pkg/store/mongodb"
-	"quasimodo7614/nirvanaTest/pkg/types"
+	"quasimodo7614/nirvanatest/pkg/store/mongodb"
+	"quasimodo7614/nirvanatest/pkg/types"
 )
 
 //var db = memory.MemDb

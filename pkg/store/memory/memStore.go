@@ -3,7 +3,7 @@ package memory
 import (
 	"context"
 	"errors"
-	"quasimodo7614/nirvanaTest/pkg/types"
+	"quasimodo7614/nirvanatest/pkg/types"
 	"sync"
 )
 

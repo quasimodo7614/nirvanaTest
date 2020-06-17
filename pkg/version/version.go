@@ -4,5 +4,5 @@ package version
 var (
 	Version = "Unknown"
 	Commit  = "Unknown"
-	Package = "nirvanaTest"
+	Package = "nirvanatest"
 )
