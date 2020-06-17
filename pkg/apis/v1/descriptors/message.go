@@ -13,7 +13,18 @@ func init() {
 	}, {
 		Path:        "/messages/{message}",
 		Definitions: []def.Definition{getMessage},
+	}, {
+		Path:        "/messages",
+		Definitions: []def.Definition{createMessage},
 	},
+		{
+			Path:        "/messages",
+			Definitions: []def.Definition{updateMessage},
+		},
+		{
+			Path:        "/messages/{message}",
+			Definitions: []def.Definition{deleteMessage},
+		},
 	}...)
 }
 
@@ -42,4 +53,37 @@ var getMessage = def.Definition{
 		def.PathParameterFor("message", "Message id"),
 	},
 	Results: def.DataErrorResults("A message"),
+}
+
+var createMessage = def.Definition{
+	Method:      def.Create,
+	Summary:     "Create Message",
+	Description: "Create a message ",
+	Function:    message.CreateMessage,
+	Parameters: []def.Parameter{
+		def.BodyParameterFor("Create Message request"),
+	},
+	Results: def.DataErrorResults("Result of Create"),
+}
+
+var updateMessage = def.Definition{
+	Method:      def.Update,
+	Summary:     "Update Message",
+	Description: "Update a message ",
+	Function:    message.UpdateMessage,
+	Parameters: []def.Parameter{
+		def.BodyParameterFor("Update Message request"),
+	},
+	Results: def.DataErrorResults("Result of Update"),
+}
+
+var deleteMessage = def.Definition{
+	Method:      def.Delete,
+	Summary:     "Delete Message",
+	Description: "Delete a message ",
+	Function:    message.DeleteMessage,
+	Parameters: []def.Parameter{
+		def.PathParameterFor("message", "message id"),
+	},
+	Results: []def.Result{def.ErrorResult()},
 }

@@ -2,32 +2,35 @@ package message
 
 import (
 	"context"
-	"fmt"
+	"myproject/pkg/store/mongodb"
+	"myproject/pkg/types"
 )
 
-// Message describes a message entry.
-type Message struct {
-	ID      int    `json:"id"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
-}
+//var db = memory.MemDb
+var db = mongodb.MS
 
 // ListMessages returns all messages.
-func ListMessages(ctx context.Context, count int) ([]Message, error) {
-	messages := make([]Message, count)
-	for i := 0; i < count; i++ {
-		messages[i].ID = i
-		messages[i].Title = fmt.Sprintf("Example %d", i)
-		messages[i].Content = fmt.Sprintf("Content of example %d", i)
-	}
-	return messages, nil
+func ListMessages(ctx context.Context, count int) (interface{}, error) {
+	all, err := db.List(ctx)
+	return all, err
 }
 
 // GetMessage returns a message by id.
-func GetMessage(ctx context.Context, id int) (*Message, error) {
-	return &Message{
-		ID:      id,
-		Title:   "This is an example",
-		Content: "Example content",
-	}, nil
+func GetMessage(ctx context.Context, id int) (interface{}, error) {
+	return db.Get(ctx, id)
+}
+
+// CreateMessage returns a message by id.
+func CreateMessage(ctx context.Context, message types.Message) (interface{}, error) {
+	return db.Add(ctx, message)
+}
+
+// UpdateMessage returns a message by id.
+func UpdateMessage(ctx context.Context, message types.Message) (interface{}, error) {
+	return db.Upd(ctx, message)
+}
+
+// DeleteMessage returns a message by id.
+func DeleteMessage(ctx context.Context, id int) (error) {
+	return db.Del(ctx, id)
 }
