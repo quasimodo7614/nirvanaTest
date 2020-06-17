@@ -3,12 +3,12 @@ package message
 import (
 	"context"
 
-	"github.com/quasimodo7614/nirvanatest/pkg/store/mongodb"
+	"github.com/quasimodo7614/nirvanatest/pkg/store/memory"
 	"github.com/quasimodo7614/nirvanatest/pkg/types"
 )
 
-//var db = memory.MemDb
-var db = mongodb.MS
+var db = memory.MemDb
+//var db = mongodb.MS
 
 // ListMessages returns all messages.
 func ListMessages(ctx context.Context, count int) (interface{}, error) {
@@ -27,7 +27,7 @@ func CreateMessage(ctx context.Context, message types.Message) (interface{}, err
 }
 
 // UpdateMessage returns a message by id.
-func UpdateMessage(ctx context.Context, message types.Message) (interface{}, error) {
+func UpdateMessage(ctx context.Context, id int, message types.Message) (interface{}, error) {
 	return db.Upd(ctx, message)
 }
 

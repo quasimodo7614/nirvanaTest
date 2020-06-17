@@ -9,22 +9,14 @@ import (
 func init() {
 	register([]def.Descriptor{{
 		Path:        "/messages",
-		Definitions: []def.Definition{listMessages},
-	}, {
-		Path:        "/messages/{message}",
-		Definitions: []def.Definition{getMessage},
-	}, {
-		Path:        "/messages",
-		Definitions: []def.Definition{createMessage},
+		Definitions: []def.Definition{createMessage, listMessages},
+		Children: []def.Descriptor{
+			{
+				Path:        "{message}",
+				Definitions: []def.Definition{updateMessage, getMessage, deleteMessage},
+			},
+		},
 	},
-		{
-			Path:        "/messages",
-			Definitions: []def.Definition{updateMessage},
-		},
-		{
-			Path:        "/messages/{message}",
-			Definitions: []def.Definition{deleteMessage},
-		},
 	}...)
 }
 
@@ -72,6 +64,7 @@ var updateMessage = def.Definition{
 	Description: "Update a message ",
 	Function:    message.UpdateMessage,
 	Parameters: []def.Parameter{
+		def.PathParameterFor("message", "Message id"),
 		def.BodyParameterFor("Update Message request"),
 	},
 	Results: def.DataErrorResults("Result of Update"),
