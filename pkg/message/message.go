@@ -31,6 +31,6 @@ func UpdateMessage(ctx context.Context, message types.Message) (interface{}, err
 }
 
 // DeleteMessage returns a message by id.
-func DeleteMessage(ctx context.Context, id int) (error) {
+func DeleteMessage(ctx context.Context, id int) error {
 	return db.Del(ctx, id)
 }

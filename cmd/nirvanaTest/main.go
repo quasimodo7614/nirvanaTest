@@ -28,7 +28,7 @@ func main() {
 	metricsOption := metrics.NewDefaultOption() // Metrics plugin.
 	loggerOption := logger.NewDefaultOption()   // Logger plugin.
 	reqlogOption := reqlog.NewDefaultOption()   // Request log plugin.
-	versionOption := pversion.NewOption( // Version plugin.
+	versionOption := pversion.NewOption(        // Version plugin.
 		"nirvanaTest",
 		version.Version,
 		version.Commit,

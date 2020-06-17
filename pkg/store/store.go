@@ -7,5 +7,5 @@ type Store interface {
 	Upd(ctx context.Context, obj interface{}) (interface{}, error)
 	List(ctx context.Context) (interface{}, error)
 	Get(ctx context.Context, id interface{}) (interface{}, error)
-	Del(ctx context.Context, id interface{}) (error)
+	Del(ctx context.Context, id interface{}) error
 }
