@@ -3,8 +3,8 @@
 package apis
 
 import (
-	"nirvanaTest/pkg/apis/middlewares"
-	v1 "nirvanaTest/pkg/apis/v1/descriptors"
+	"quasimodo7614/nirvanaTest/pkg/apis/middlewares"
+	v1 "quasimodo7614/nirvanaTest/pkg/apis/v1/descriptors"
 
 	def "github.com/caicloud/nirvana/definition"
 )

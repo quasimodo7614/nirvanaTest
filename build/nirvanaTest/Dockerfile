@@ -1,6 +1,6 @@
 FROM golang:latest
 
-WORKDIR /go/src/myproject
+WORKDIR /go/src/quasimodo7614/nirvanaTest
 
 COPY . .
 
@@ -8,13 +8,13 @@ ENV GOPATH /go
 
 ARG CMD_DIR=./cmd
 
-ARG ROOT=myproject
+ARG ROOT=nirvanaTest
 
 ARG VERSION=
 
 ARG COMMIT=
 
-ARG TARGET=myproject
+ARG TARGET=nirvanaTest
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64                      \
 	go build -i -v -o /tmp/${TARGET}                  \
@@ -25,7 +25,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64                      \
 
 FROM debian:jessie
 
-ARG TARGET=myproject
+ARG TARGET=nirvanaTest
 
 COPY --from=0 /tmp/${TARGET} /${TARGET}
 

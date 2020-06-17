@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	"nirvanaTest/pkg/apis"
-	"nirvanaTest/pkg/apis/filters"
-	"nirvanaTest/pkg/apis/modifiers"
-	"nirvanaTest/pkg/version"
+	"quasimodo7614/nirvanaTest/pkg/apis"
+	"quasimodo7614/nirvanaTest/pkg/apis/filters"
+	"quasimodo7614/nirvanaTest/pkg/apis/modifiers"
+	"quasimodo7614/nirvanaTest/pkg/version"
 
 	"github.com/caicloud/nirvana"
 	"github.com/caicloud/nirvana/config"
@@ -28,7 +28,7 @@ func main() {
 	metricsOption := metrics.NewDefaultOption() // Metrics plugin.
 	loggerOption := logger.NewDefaultOption()   // Logger plugin.
 	reqlogOption := reqlog.NewDefaultOption()   // Request log plugin.
-	versionOption := pversion.NewOption(        // Version plugin.
+	versionOption := pversion.NewOption( // Version plugin.
 		"nirvanaTest",
 		version.Version,
 		version.Commit,

@@ -19,7 +19,7 @@
 VERSION ?= v0.1.0
 
 # Target binaries. You can build multiple binaries for a single project.
-TARGETS := myproject
+TARGETS := nirvanaTest
 
 # Container registries.
 REGISTRIES ?= ""
@@ -32,7 +32,7 @@ IMAGE_PREFIX ?= $(strip )
 IMAGE_SUFFIX ?= $(strip )
 
 # This repo's root import path (under GOPATH).
-ROOT := myproject
+ROOT := nivanaTest
 
 # Project main package location (can be multiple ones).
 CMD_DIR := ./cmd
