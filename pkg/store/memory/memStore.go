@@ -3,7 +3,7 @@ package memory
 import (
 	"context"
 	"errors"
-	"myproject/pkg/types"
+	"nirvanaTest/pkg/types"
 	"sync"
 )
 

@@ -2,8 +2,8 @@ package message
 
 import (
 	"context"
-	"myproject/pkg/store/mongodb"
-	"myproject/pkg/types"
+	"nirvanaTest/pkg/store/mongodb"
+	"nirvanaTest/pkg/types"
 )
 
 //var db = memory.MemDb

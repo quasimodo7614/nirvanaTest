@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	"myproject/pkg/apis"
-	"myproject/pkg/apis/filters"
-	"myproject/pkg/apis/modifiers"
-	"myproject/pkg/version"
+	"nirvanaTest/pkg/apis"
+	"nirvanaTest/pkg/apis/filters"
+	"nirvanaTest/pkg/apis/modifiers"
+	"nirvanaTest/pkg/version"
 
 	"github.com/caicloud/nirvana"
 	"github.com/caicloud/nirvana/config"
@@ -29,7 +29,7 @@ func main() {
 	loggerOption := logger.NewDefaultOption()   // Logger plugin.
 	reqlogOption := reqlog.NewDefaultOption()   // Request log plugin.
 	versionOption := pversion.NewOption(        // Version plugin.
-		"myproject",
+		"nirvanaTest",
 		version.Version,
 		version.Commit,
 		version.Package,
