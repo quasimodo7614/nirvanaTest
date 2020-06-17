@@ -4,14 +4,16 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/quasimodo7614/nirvanatest/pkg/types"
-	"go.mongodb.org/mongo-driver/bson"
 	"os"
 	"strings"
 
 	"github.com/caicloud/nirvana/log"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+
+	"github.com/quasimodo7614/nirvanatest/pkg/store"
+	"github.com/quasimodo7614/nirvanatest/pkg/types"
 )
 
 const (
@@ -61,63 +63,50 @@ func NewMongoStore() *MongoStore {
 	}
 }
 
-func (s *MongoStore) Add(ctx context.Context, obj interface{}) (interface{}, error) {
-	m, ok := obj.(types.Message)
-	if !ok {
-		return nil, errors.New("type is not message")
-	}
-	filter := bson.M{"id": m.ID}
-	// 这么判断是否存在真的优雅吗？
-	cur, err := s.MessageCollection.Find(ctx, filter)
-	if cur.Next(ctx) {
-		return nil, errors.New("already exist")
-	}
-	_, err = s.MessageCollection.InsertOne(ctx, m)
-
-	return m, err
-}
-
-func (s *MongoStore) Del(ctx context.Context, id interface{}) error {
-	name := id.(int)
-	_, err := s.MessageCollection.DeleteOne(ctx, bson.M{"id": name})
+func (s *MongoStore) Add(ctx context.Context, obj types.Message) (error) {
+	_, err := s.MessageCollection.InsertOne(ctx, obj)
 	return err
 }
 
-func (s *MongoStore) Upd(ctx context.Context, obj interface{}) (interface{}, error) {
-	m, ok := obj.(types.Message)
-	if !ok {
-		return nil, errors.New("type is not message")
-	}
-	filter := bson.D{{"id", m.ID}}
-	r, err := s.MessageCollection.UpdateOne(ctx, filter, bson.D{{"$set", m}})
-	if r.MatchedCount < 1 {
-		return nil, errors.New("not found")
-	}
-	return m, err
+func (s *MongoStore) Del(ctx context.Context, id int) error {
+	_, err := s.MessageCollection.DeleteOne(ctx, bson.M{"id": id})
+	return err
 }
 
-func (s *MongoStore) Get(ctx context.Context, id interface{}) (interface{}, error) {
-	name := id.(int)
+func (s *MongoStore) Upd(ctx context.Context, obj types.Message) (error) {
+	filter := bson.D{{"id", obj.ID}}
+	r, err := s.MessageCollection.UpdateOne(ctx, filter, bson.D{{"$set", obj}})
+	if r.MatchedCount < 1 {
+		return errors.New("not found")
+	}
+	return err
+}
+
+func (s *MongoStore) Get(ctx context.Context, id int) (types.Message, error) {
 	re := types.Message{}
-	filter := bson.M{"id": name}
+	filter := bson.M{"id": id}
 	err := s.MessageCollection.FindOne(ctx, filter).Decode(&re)
 	return re, err
 }
 
-func (s *MongoStore) List(ctx context.Context) (interface{}, error) {
+func (s *MongoStore) List(ctx context.Context, count int) ([]types.Message, error) {
 	var ret []types.Message
 	cur, err := s.MessageCollection.Find(ctx, bson.D{})
 	if err != nil {
 		return nil, err
 	}
+	if count == 0 {
+		count = store.DefaultCountNum
+	}
 	defer cur.Close(ctx)
-	for cur.Next(ctx) {
+	for cur.Next(ctx) && count > 0 {
 		var a types.Message
 		err := cur.Decode(&a)
 		if err != nil {
 			return nil, err
 		}
 		ret = append(ret, a)
+		count --
 	}
 	if err := cur.Err(); err != nil {
 		return nil, err

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"sync"
 
+	"github.com/quasimodo7614/nirvanatest/pkg/store"
 	"github.com/quasimodo7614/nirvanatest/pkg/types"
 )
 
@@ -24,59 +25,52 @@ func NewMemStore() *MemStore {
 	}
 }
 
-func (s *MemStore) Add(ctx context.Context, obj interface{}) (interface{}, error) {
-	m, ok := obj.(types.Message)
-	if !ok {
-		return nil, errors.New("type is not message")
-	}
-	if _, ok2 := s.Valm[m.ID]; ok2 {
-		return nil, errors.New("already exist")
-	}
+func (s *MemStore) Add(ctx context.Context, obj types.Message) (error) {
 	s.Lock()
-	s.Valm[m.ID] = m
-	s.Unlock()
-	return m, nil
-}
-
-func (s *MemStore) Del(ctx context.Context, id interface{}) error {
-	s.Lock()
-	delete(s.Valm, id.(int))
+	s.Valm[obj.ID] = obj
 	s.Unlock()
 	return nil
 }
 
-func (s *MemStore) Upd(ctx context.Context, obj interface{}) (interface{}, error) {
-	m, ok := obj.(types.Message)
-	if !ok {
-		return nil, errors.New("type is not message")
-	}
-	if _, ok2 := s.Valm[m.ID]; !ok2 {
-		return nil, errors.New("obj not exist")
-	}
+func (s *MemStore) Del(ctx context.Context, id int) error {
 	s.Lock()
-	s.Valm[m.ID] = m
+	delete(s.Valm, id)
 	s.Unlock()
+	return nil
+}
+
+func (s *MemStore) Upd(ctx context.Context, obj types.Message) (error) {
+	s.Lock()
+	s.Valm[obj.ID] = obj
+	s.Unlock()
+	return nil
+}
+
+func (s *MemStore) Get(ctx context.Context, id int) (types.Message, error) {
+	s.Lock()
+	m, ok := s.Valm[id]
+	s.Unlock()
+	if !ok {
+		return types.Message{}, errors.New("not found")
+	}
 	return m, nil
 }
 
-func (s *MemStore) Get(ctx context.Context, id interface{}) (interface{}, error) {
-	s.Lock()
-	m, ok := s.Valm[id.(int)]
-	s.Unlock()
-	if !ok {
-		return nil, errors.New("not found")
+func (s *MemStore) List(ctx context.Context, count int) ([]types.Message, error) {
+	if count == 0 {
+		count = store.DefaultCountNum
 	}
-	return m, nil
-}
-func (s *MemStore) List(ctx context.Context) (interface{}, error) {
 	var ret []types.Message
 	s.Lock()
+	cur := 1
 	for _, v := range s.Valm {
 		ret = append(ret, v)
+		if cur > count {
+			break
+		}
+		cur ++
 	}
 	s.Unlock()
-	if len(ret) == 0 {
-		return nil, errors.New("no result found")
-	}
+
 	return ret, nil
 }
